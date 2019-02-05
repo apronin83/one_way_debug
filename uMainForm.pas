@@ -50,6 +50,8 @@ type
     procedure btGetWebhookInfoClick(Sender: TObject);
     procedure btClearClick(Sender: TObject);
   private
+    FAppPath: String;
+
     FIni: TIniFile;
 
     FNgrokApp: String;
@@ -112,7 +114,9 @@ procedure TMainForm.FormCreate(Sender: TObject);
 begin
   LogSeparator := LogSeparator.PadLeft(100, '-');
 
-  FIni := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'setting.ini');
+  FAppPath := ExtractFilePath(ParamStr(0));
+
+  FIni := TIniFile.Create(FAppPath + 'setting.ini');
 
   LoadParams;
 
@@ -138,7 +142,7 @@ end;
 procedure TMainForm.LoadParams;
 var
   i: Integer;
-  TestPath: String;
+  FindPaths, TestPath: String;
   SL: TStringList;
 begin
   FNgrokApp             := FIni.ReadString('MAIN', 'NGROK', 'ngrok.exe');
@@ -155,9 +159,13 @@ begin
 
   if FNgrokAppPath.Trim.IsEmpty then
     begin
+      FindPaths := FAppPath + CRLF + StringReplace(GetEnvironmentVariable('PATH'), ';', #13#10, [rfReplaceAll]);
+
       SL := TStringList.Create;
       try
-        SL.Text := StringReplace(GetEnvironmentVariable('PATH'), ';', #13#10, [rfReplaceAll]);
+        SL.Text := FindPaths;
+
+        SL.Insert(0, FAppPath);
 
         for i := 0 to SL.Count-1 do
           begin

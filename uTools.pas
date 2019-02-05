@@ -19,6 +19,9 @@ procedure WaitForBrowser(WB: TWebBrowser);
 function HttpGet(AUrl: String; out AResponseCode: Integer; out AResponse: String; out AErrorMessage: String): Boolean;
 function HttpPostMultiPart(AUrl: String; AParams: TStringList): String;
 
+const
+  CRLF = #13#10;
+
 implementation
 
 function SubstituteText(AString, AFindText, AInsertText: String): String;
@@ -187,8 +190,6 @@ end;
 
 function HttpGet(AUrl: String; out AResponseCode: Integer; out AResponse: String; out AErrorMessage: String): Boolean;
 var
-  i: Integer;
-  data: TIdMultiPartFormDataStream;
   http: TIdHttp;
 begin
   AResponse := '';
