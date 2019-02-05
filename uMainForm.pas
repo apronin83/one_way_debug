@@ -1,4 +1,4 @@
-unit uMainForm;
+п»їunit uMainForm;
 
 interface
 
@@ -6,6 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.StdCtrls, IniFiles, Pipes, Vcl.Samples.Spin, Vcl.ExtCtrls,
+
   uTools;
 
 type
@@ -75,7 +76,7 @@ type
     { Public declarations }
   end;
 
-  // Проверить соответствие кодов, тем кодам которые возвращаются вызываемыми программами
+  // РџСЂРѕРІРµСЂРёС‚СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ РєРѕРґРѕРІ, С‚РµРј РєРѕРґР°Рј РєРѕС‚РѕСЂС‹Рµ РІРѕР·РІСЂР°С‰Р°СЋС‚СЃСЏ РІС‹Р·С‹РІР°РµРјС‹РјРё РїСЂРѕРіСЂР°РјРјР°РјРё
   TExitCodes = (ecSuccess              = 0,
                 ecSignToolNotInPath    = 1,
                 ecAssemblyDirectoryBad = 2,
