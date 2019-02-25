@@ -12,7 +12,7 @@ Binary Downloads
 - Download and install your favorite webserver. The webserver must be available locally.
 
 # Run
-    >OneWayDebug.exe
+    > OneWayDebug.exe
 	
 # The list of variables
 * `Ngrok path` - Path to Ngrok.exe
@@ -21,10 +21,13 @@ Binary Downloads
 * `Use XDebug` for PhpStorm. If `Use XDebug` checked, then you need to set `XDEBUG_SESSION_START`
 	
 # Using
+
 ## OneWayDebug.exe
 ![OneWayDebug.exe](docs/pic1.png)
+
 ## Press button "Start Ngrok"
 ![Press button "Start Ngrok"](docs/pic2.png)
+
 *Log*
 ----
     Run commands:
@@ -40,8 +43,10 @@ Binary Downloads
     {"ok":true,"result":true,"description":"Webhook was set"}
     Status: WORKING
 ----
+
 ## Press button "Telegram Bot GetWebhookInfo"
 ![Press button "Telegram Bot GetWebhookInfo"](docs/pic3.png)
+
 *Log*
 ----
     Check request:
@@ -50,14 +55,19 @@ Binary Downloads
     Check response:
     {"ok":true,"result":{"url":"https://90001384.ngrok.io/your_domain.loc/your_webhook_handler.php","has_custom_certificate":false,"pending_update_count":0,"max_connections":40}}
 ----
+
 ## Send a message to the telegram channel
 ![Send a message to the telegram channel](docs/pic4.png)
+
 ## Debug script `your_webhook_handler.php`
 ![Debug script](docs/pic5.png)
+
 ## Send response
 ![Send response](docs/pic6.png)
+
 ## Press button "Stop Ngrok"
 ![Press button "Stop Ngrok"](docs/pic7.png)
+
 *Log*
 ----
     Stop application "ngrok.exe"
