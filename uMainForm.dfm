@@ -191,6 +191,23 @@ object MainForm: TMainForm
       DesignSize = (
         477
         35)
+      object lUrl: TLabel
+        Left = 6
+        Top = 11
+        Width = 226
+        Height = 13
+        Cursor = crHandPoint
+        Caption = 'https://github.com/apronin83/one_way_debug'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHighlight
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        OnClick = lUrlClick
+        OnMouseMove = lUrlMouseMove
+        OnMouseLeave = lUrlMouseLeave
+      end
       object btClear: TButton
         Left = 400
         Top = 4
@@ -220,11 +237,11 @@ object MainForm: TMainForm
     Left = 136
     Top = 256
   end
-  object PipeConsole1: TPipeConsole
+  object PipeConsole: TPipeConsole
     LastError = 0
-    OnError = PipeConsole1Error
-    OnOutput = PipeConsole1Output
-    OnStop = PipeConsole1Stop
+    OnError = PipeConsoleError
+    OnOutput = PipeConsoleOutput
+    OnStop = PipeConsoleStop
     Priority = tpNormal
     Visible = False
     Left = 56

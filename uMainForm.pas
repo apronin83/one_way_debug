@@ -3,9 +3,10 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.StdCtrls, IniFiles, Pipes, Vcl.Samples.Spin, Vcl.ExtCtrls,
+  Winapi.Windows, Winapi.Messages, Winapi.ShellAPI, System.SysUtils,
+  System.Variants, System.Classes, System.UITypes, Vcl.Graphics, Vcl.Controls,
+  Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IniFiles, Pipes, Vcl.Samples.Spin,
+  Vcl.ExtCtrls,
 
   uTools;
 
@@ -17,7 +18,7 @@ type
     edNgrokAppPath: TEdit;
     btSelectNgrokAppPath: TButton;
     dlgNgrokPath: TOpenDialog;
-    PipeConsole1: TPipeConsole;
+    PipeConsole: TPipeConsole;
     btStop: TButton;
     lBotApiKey: TLabel;
     edBotApiKey: TEdit;
@@ -37,18 +38,22 @@ type
     pnBottom: TPanel;
     btClear: TButton;
     meLog: TMemo;
+    lUrl: TLabel;
     procedure btStartClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btSelectNgrokAppPathClick(Sender: TObject);
-    procedure PipeConsole1Output(Sender: TObject; Stream: TStream);
-    procedure PipeConsole1Stop(Sender: TObject; ExitValue: Cardinal);
-    procedure PipeConsole1Error(Sender: TObject; Stream: TStream);
+    procedure PipeConsoleOutput(Sender: TObject; Stream: TStream);
+    procedure PipeConsoleStop(Sender: TObject; ExitValue: Cardinal);
+    procedure PipeConsoleError(Sender: TObject; Stream: TStream);
     procedure btStopClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure chbUseXDebugClick(Sender: TObject);
     procedure btGetWebhookInfoClick(Sender: TObject);
     procedure btClearClick(Sender: TObject);
+    procedure lUrlClick(Sender: TObject);
+    procedure lUrlMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure lUrlMouseLeave(Sender: TObject);
   private
     FAppPath: String;
 
@@ -188,6 +193,21 @@ begin
     end;
 end;
 
+procedure TMainForm.lUrlMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+begin
+  lUrl.Font.Style := lUrl.Font.Style + [fsUnderline];
+end;
+
+procedure TMainForm.lUrlMouseLeave(Sender: TObject);
+begin
+  lUrl.Font.Style := lUrl.Font.Style - [fsUnderline];
+end;
+
+procedure TMainForm.lUrlClick(Sender: TObject);
+begin
+  ShellExecute(0, 'open', PChar('https://github.com/apronin83/one_way_debug'), nil, nil, SW_SHOWNORMAL);
+end;
+
 procedure TMainForm.InitControls;
 begin
   edNgrokAppPath.Text := FNgrokAppPath;
@@ -264,7 +284,7 @@ begin
       Exit;
     end;
 
-  PipeConsole1.Visible := FShowNgrok;
+  PipeConsole.Visible := FShowNgrok;
 
   RunCmdString := SubstituteText(FRunCmdTemplate, '{NGROK}', FNgrokApp);
   RunCmdString := SubstituteText(RunCmdString, '{LOCAL_TELEGRAM_BOT_HOST}', FLocalTelegramBotHost);
@@ -281,7 +301,7 @@ begin
   try
     CommandList.LineBreak := ' ';
 
-    if PipeConsole1.Start(FNgrokAppPath, CommandList.Text) then
+    if PipeConsole.Start(FNgrokAppPath, CommandList.Text) then
       begin
         Sleep(3000); // NGROK server initialization timeout
 
@@ -336,7 +356,7 @@ end;
 
 procedure TMainForm.btStopClick(Sender: TObject);
 begin
-  PipeConsole1.Stop(0);
+  PipeConsole.Stop(0);
 end;
 
 procedure TMainForm.btClearClick(Sender: TObject);
@@ -389,25 +409,25 @@ end;
 
 procedure TMainForm.TimerTimer(Sender: TObject);
 begin
-  btStart.Enabled := not PipeConsole1.Running;
+  btStart.Enabled := not PipeConsole.Running;
   btStop.Enabled := not btStart.Enabled;
 end;
 
-procedure TMainForm.PipeConsole1Error(Sender: TObject; Stream: TStream);
+procedure TMainForm.PipeConsoleError(Sender: TObject; Stream: TStream);
 begin
   meLog.Lines.Add(LogSeparator);
   meLog.Lines.Add(Format('Error application "%s":', [FNgrokApp]));
   meLog.Lines.Add(GetStringFromStream(Stream, TEncoding.Default));
 end;
 
-procedure TMainForm.PipeConsole1Output(Sender: TObject; Stream: TStream);
+procedure TMainForm.PipeConsoleOutput(Sender: TObject; Stream: TStream);
 begin
   meLog.Lines.Add(LogSeparator);
   meLog.Lines.Add(Format('Output application "%s":', [FNgrokApp]));
   meLog.Lines.Add(GetStringFromStream(Stream, TEncoding.Default));
 end;
 
-procedure TMainForm.PipeConsole1Stop(Sender: TObject; ExitValue: Cardinal);
+procedure TMainForm.PipeConsoleStop(Sender: TObject; ExitValue: Cardinal);
 begin
   meLog.Lines.Add(LogSeparator);
   meLog.Lines.Add(Format('Stop application "%s"', [FNgrokApp]));

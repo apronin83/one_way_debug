@@ -4,12 +4,13 @@ One way to debug a Telegram Bot API.
 You do not need a certificate for debugging.
 The Ngrok service uses its certificate.
 
-Instructions only for Windows.
+Instructions only for Windows(32-bit).
 
 Binary Downloads
-- Ngrok <https://ngrok.com>
+- [Ngrok](https://ngrok.com) (tested on version 2.2.8)
 - OneWayDebug <https://ngrok.com>
-- Download and install your favorite webserver. The webserver must be available locally.
+- Download and install your favorite webserver:heart:.
+  The webserver must be available locally.
 
 # Run
     > OneWayDebug.exe
@@ -75,8 +76,7 @@ Binary Downloads
 ----
 
 # Building project
-Delphi 10 is required for building OneWayDebug.
-https://www.embarcadero.com/products/delphi
+[Delphi 10](https://www.embarcadero.com/products/delphi) is required for building OneWayDebug.
 
 **OneWayDebug uses Pipe components by Russell Libby.**
 Author: Russell Libby, updated by Franзois PIETTE @ OverByte
@@ -85,4 +85,4 @@ Blog: Inter Process Communication Using Pipes <https://francois-piette.blogspot.
 License
 -------
 OneWayDebug is OpenSource and released under GPL (GNU GENERAL PUBLIC LICENSE).
-Probably OneWayDebug saved you a lot of time and you like it. In this case you may make a donation here.
+<!--Probably OneWayDebug saved you a lot of time and you like it. In this case you may make a donation here.-->
