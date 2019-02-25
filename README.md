@@ -4,27 +4,27 @@ One way to debug a Telegram Bot API.
 You do not need a certificate for debugging.
 The Ngrok service uses its certificate.
 
-Instructions only for Windows(32-bit).
+Instructions only for Windows 32-bit.
 
-Binary Downloads
+# Binary Downloads
 - [Ngrok](https://ngrok.com) (tested on version 2.2.8)
-- OneWayDebug <https://ngrok.com>
+- [OneWayDebug](https://github.com/apronin83/one_way_debug/releases/download/1.0.0.0-stable/OneWayDebug.zip)
 - Download and install your favorite webserver:heart:.
   The webserver must be available locally.
 
 # Run
     > OneWayDebug.exe
 	
-# The list of variables
-* `Ngrok path` - Path to Ngrok.exe
-* `Bot API Key` - Telegram Bot API Key (without prefix `bot`)
-* `Host`, `Port`, `Path` - Local webserver settings
-* `Use XDebug` for PhpStorm. If `Use XDebug` checked, then you need to set `XDEBUG_SESSION_START`
-	
 # Using
 
 ## OneWayDebug.exe
 ![OneWayDebug.exe](docs/pic1.png)
+
+### The list of variables
+* `Ngrok path` - Path to Ngrok.exe
+* `Bot API Key` - Telegram Bot API Key (without prefix `bot`)
+* `Host`, `Port`, `Path` - Local webserver settings
+* `Use XDebug` for PhpStorm. If `Use XDebug` checked, then you need to set `XDEBUG_SESSION_START`
 
 ## Press button "Start Ngrok"
 ![Press button "Start Ngrok"](docs/pic2.png)
