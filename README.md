@@ -25,8 +25,31 @@ Binary Downloads
 ![OneWayDebug.exe](docs/pic1.png)
 ## Press button "Start Ngrok"
 ![Press button "Start Ngrok"](docs/pic2.png)
+Log
+----
+    Run commands:
+    ngrok.exe http your_domain.loc:80
+    Wait...
+    Generate server:
+    https://90001384.ngrok.io
+    Param "url" for setWebhook (Telegram Bot API):
+    https://90001384.ngrok.io/your_domain.loc/your_webhook_handler.php
+    Registration request:
+    https://api.telegram.org/botDDDDDDDDD:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/setwebhook?url=https://90001384.ngrok.io/your_domain.loc/your_webhook_handler.php
+    Registration response:
+    {"ok":true,"result":true,"description":"Webhook was set"}
+    Status: WORKING
+----
 ## Press button "Telegram Bot GetWebhookInfo"
 ![Press button "Telegram Bot GetWebhookInfo"](docs/pic3.png)
+Log
+----
+    Check request:
+    https://api.telegram.org/botDDDDDDDDD:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/getWebhookInfo
+    Check response code: 200 (OK)
+    Check response:
+    {"ok":true,"result":{"url":"https://90001384.ngrok.io/your_domain.loc/your_webhook_handler.php","has_custom_certificate":false,"pending_update_count":0,"max_connections":40}}
+----
 ## Send a message to the telegram channel
 ![Send a message to the telegram channel](docs/pic4.png)
 ## Debug script `your_webhook_handler.php`
@@ -35,7 +58,11 @@ Binary Downloads
 ![Send response](docs/pic6.png)
 ## Press button "Stop Ngrok"
 ![Press button "Stop Ngrok"](docs/pic7.png)
-
+Log
+----
+    Stop application "ngrok.exe"
+    Exit code: 0 (Success)
+----
 
 # Building project
 Delphi 10 is required for building OneWayDebug.
