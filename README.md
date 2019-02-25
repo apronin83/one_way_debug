@@ -25,8 +25,7 @@ Binary Downloads
 ![OneWayDebug.exe](docs/pic1.png)
 ## Press button "Start Ngrok"
 ![Press button "Start Ngrok"](docs/pic2.png)
-
-Log
+*Log*
 ----
     Run commands:
     ngrok.exe http your_domain.loc:80
@@ -43,8 +42,7 @@ Log
 ----
 ## Press button "Telegram Bot GetWebhookInfo"
 ![Press button "Telegram Bot GetWebhookInfo"](docs/pic3.png)
-
-Log
+*Log*
 ----
     Check request:
     https://api.telegram.org/botDDDDDDDDD:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/getWebhookInfo
@@ -60,8 +58,7 @@ Log
 ![Send response](docs/pic6.png)
 ## Press button "Stop Ngrok"
 ![Press button "Stop Ngrok"](docs/pic7.png)
-
-Log
+*Log*
 ----
     Stop application "ngrok.exe"
     Exit code: 0 (Success)
