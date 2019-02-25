@@ -25,6 +25,7 @@ Binary Downloads
 ![OneWayDebug.exe](docs/pic1.png)
 ## Press button "Start Ngrok"
 ![Press button "Start Ngrok"](docs/pic2.png)
+
 Log
 ----
     Run commands:
@@ -42,6 +43,7 @@ Log
 ----
 ## Press button "Telegram Bot GetWebhookInfo"
 ![Press button "Telegram Bot GetWebhookInfo"](docs/pic3.png)
+
 Log
 ----
     Check request:
@@ -58,6 +60,7 @@ Log
 ![Send response](docs/pic6.png)
 ## Press button "Stop Ngrok"
 ![Press button "Stop Ngrok"](docs/pic7.png)
+
 Log
 ----
     Stop application "ngrok.exe"
