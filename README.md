@@ -8,7 +8,7 @@ Instructions only for Windows 32-bit.
 
 # Binary Downloads
 - [Ngrok](https://ngrok.com) (tested on version 2.2.8)
-- [OneWayDebug](https://github.com/apronin83/one_way_debug/releases/download/1.0.0.0-stable/OneWayDebug.zip)
+- [OneWayDebug](https://github.com/apronin83/one_way_debug/releases/download/v1.0.0.0-stable/OneWayDebug.zip)
 - Download and install your favorite webserver:heart:.
   The webserver must be available locally.
 
