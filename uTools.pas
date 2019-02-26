@@ -17,7 +17,7 @@ function GetStringFromStream(AStream: TStream; AEncoding: TEncoding): String;
 function GetWebBrowserHTML(AUrl: String): String;
 procedure WaitForBrowser(WB: TWebBrowser);
 function HttpGet(AUrl: String; out AResponseCode: Integer; out AResponse: String; out AErrorMessage: String): Boolean;
-function HttpPostMultiPart(AUrl: String; AParams: TStringList): String;
+function HttpPostMultiPart(AUrl: String; AParams: TStringList; out AResponse: String): Boolean;
 
 const
   CRLF = #13#10;
@@ -197,7 +197,7 @@ begin
 
   http := TIdHttp.Create(nil);
   try
-    http.ReadTimeout := 60000; // 60000 ms = 1 min
+    http.ReadTimeout := 30000; // 30000 ms = 30 sec
 
     http.Request.CacheControl := 'no-cache';
 
@@ -218,12 +218,14 @@ begin
   end;
 end;
 
-function HttpPostMultiPart(AUrl: String; AParams: TStringList): String;
+function HttpPostMultiPart(AUrl: String; AParams: TStringList; out AResponse: String): Boolean;
 var
   i: Integer;
   data: TIdMultiPartFormDataStream;
   http: TIdHttp;
 begin
+  Result := False;
+
   http := TIdHttp.Create(nil);
   try
     data := TIdMultiPartFormDataStream.Create;
@@ -231,15 +233,19 @@ begin
       for i := 0 to AParams.Count-1 do
         data.AddFormField(AParams.KeyNames[i], AParams.Values[AParams.KeyNames[i]]);
 
-      http.ReadTimeout := 60000; // 60000 ms = 1 min
+      http.ReadTimeout := 30000; // 30000 ms = 30 sec
 
       http.Request.CacheControl := 'no-cache';
 
       http.HTTPOptions := [hoKeepOrigProtocol,
                            hoNoProtocolErrorException,
                            hoWantProtocolErrorContent];
+      try
+        AResponse := http.Post(AUrl, data);
 
-      Result := http.Post(AUrl, data);
+        Result := True;
+      except
+      end;
     finally
       FreeAndNil(data);
     end;

@@ -71,6 +71,8 @@ type
     FVisibleShowNgrok: Boolean;
     FShowNgrok: Boolean;
 
+    FStartCorrect: Boolean;
+
     procedure LoadParams;
     procedure GetCurrentParams;
     procedure SaveCurrentParams;
@@ -265,13 +267,17 @@ end;
 
 procedure TMainForm.btStartClick(Sender: TObject);
 var
+  Res: Boolean;
   RunCmdString: String;
   CommandList: TStringList;
   NgrokServerUrl: String;
   RegisterHookUrl: String;
   PostParams: TStringList;
   TelBotApiRegUrl: String;
+  Response: String;
 begin
+  FStartCorrect := False;
+
   GetCurrentParams;
 
   FLocalTelegramBotHost := DeleteText(DeleteText(FLocalTelegramBotHost, 'http://'), 'https://');
@@ -301,7 +307,9 @@ begin
   try
     CommandList.LineBreak := ' ';
 
-    if PipeConsole.Start(FNgrokAppPath, CommandList.Text) then
+    Res := PipeConsole.Start(FNgrokAppPath, CommandList.Text);
+
+    if Res then
       begin
         Sleep(3000); // NGROK server initialization timeout
 
@@ -331,18 +339,28 @@ begin
 
           meLog.Lines.Add('Registration request:');
           meLog.Lines.Add(TelBotApiRegUrl);
+          meLog.Lines.Add('Wait... (max 30 sec)');
 
-          meLog.Lines.Add('Registration response:');
-          meLog.Lines.Add(HttpPostMultiPart(TelBotApiRegUrl, PostParams));
+          Res := HttpPostMultiPart(TelBotApiRegUrl, PostParams, Response);
+
+          if Res then
+            begin
+              meLog.Lines.Add('Registration response:');
+              meLog.Lines.Add(Response);
+              meLog.Lines.Add('Status: Registration Successful');
+
+              FStartCorrect := True;
+            end;
         finally
           FreeAndNil(PostParams);
         end;
+      end;
 
-        meLog.Lines.Add('Status: WORKING');
-      end
-    else
+    if not Res then
       begin
-        meLog.Lines.Add('Status: FAIL');
+        PipeConsole.Stop(0);
+
+        meLog.Lines.Add('Status: Registration failed');
 
         ShowMessageFmt('Application error.' + #13#10 + '"%s"', [FNgrokApp]);
         Exit;
@@ -382,6 +400,7 @@ begin
   meLog.Lines.Add(LogSeparator);
   meLog.Lines.Add('Check request:');
   meLog.Lines.Add(CheckUrl);
+  meLog.Lines.Add('Wait... (max 30 sec)');
 
   if HttpGet(CheckUrl, ResponseCode, Response, ErrorMessage) then
     begin
@@ -410,7 +429,8 @@ end;
 procedure TMainForm.TimerTimer(Sender: TObject);
 begin
   btStart.Enabled := not PipeConsole.Running;
-  btStop.Enabled := not btStart.Enabled;
+
+  btStop.Enabled := FStartCorrect and (not btStart.Enabled);
 end;
 
 procedure TMainForm.PipeConsoleError(Sender: TObject; Stream: TStream);
