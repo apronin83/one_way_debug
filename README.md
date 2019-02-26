@@ -40,9 +40,10 @@ Instructions only for Windows 32-bit.
     https://90001384.ngrok.io/your_domain.loc/your_webhook_handler.php
     Registration request:
     https://api.telegram.org/botDDDDDDDDD:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/setwebhook?url=https://90001384.ngrok.io/your_domain.loc/your_webhook_handler.php
+    Wait... (max 30 sec)
     Registration response:
     {"ok":true,"result":true,"description":"Webhook was set"}
-    Status: WORKING
+    Status: Registration Successful
 ----
 
 ## Press button "Telegram Bot GetWebhookInfo"
@@ -52,6 +53,7 @@ Instructions only for Windows 32-bit.
 ----
     Check request:
     https://api.telegram.org/botDDDDDDDDD:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/getWebhookInfo
+    Wait... (max 30 sec)
     Check response code: 200 (OK)
     Check response:
     {"ok":true,"result":{"url":"https://90001384.ngrok.io/your_domain.loc/your_webhook_handler.php","has_custom_certificate":false,"pending_update_count":0,"max_connections":40}}
